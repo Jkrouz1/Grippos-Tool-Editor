@@ -2,38 +2,133 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local UserInputService = game:GetService("UserInputService")
 
 local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = LocalPlayer.PlayerGui
-screenGui.Name = "ToolEditor"
+screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+screenGui.Name = "ToolGripEditor"
 screenGui.ResetOnSpawn = false
 
+local ui = Instance.new("Frame")
+ui.Parent = screenGui
+ui.Name = "uitop"
+ui.Size = UDim2.new(0, 260, 0, 20)
+ui.Position = UDim2.new(0.5, 96, 0.200000003, -11)
+ui.AnchorPoint = Vector2.new(0.5, 0.5)
+ui.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
+ui.BorderColor3 = Color3.new(0.3, 0.3, 0.3)
+ui.BorderSizePixel = 2
+ui.Active = true
+ui.Draggable = true
+ui.ZIndex = 1
 
-local gui = Instance.new("Frame")
-gui.Parent = screenGui
-gui.Name = "ToolEditor"
-gui.Size = UDim2.new(0.25, 0, 0.6, 0) -- Increased height
-gui.Position = UDim2.new(0.85, 0, 0.45, 0) -- Adjusted position
-gui.AnchorPoint = Vector2.new(0.5, 0.5)
-gui.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
-gui.BorderColor3 = Color3.new(0.3, 0.3, 0.3)
-gui.BorderSizePixel = 2
-gui.Active = true
-gui.Draggable = true
+UICorner = Instance.new("UICorner")
+UICorner.Parent = ui
+UICorner.CornerRadius = UDim.new(0, 8)
+
+UIC = Instance.new("UIStroke")
+UIC.Parent = ui
+UIC.ApplyStrokeMode = "Border"
+UIC.Color = Color3.new(77, 77, 77)
+UIC.LineJoinMode = "Round"
+UIC.Thickness = 1
+UIC.Transparency = 0
+
+local Close = Instance.new("TextButton")
+Close.Parent = ui
+Close.Name = "XXX"
+Close.Size = UDim2.new(0.150000006, 0, 0.899999976, 0)
+Close.Position = UDim2.new(0.999000013, 0, 0.5, 0)
+Close.AnchorPoint = Vector2.new(1, 0.5)
+Close.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+Close.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
+Close.BorderSizePixel = 2
+Close.TextColor3 = Color3.new(1, 1, 1)
+Close.TextSize = 16
+Close.Font = Enum.Font.GothamBold
+Close.Text = "X"
+Close.MouseButton1Click:Connect(function()
+	screenGui:Destroy()
+end)
+
+
+UICorner = Instance.new("UICorner")
+UICorner.Parent = Close
+UICorner.CornerRadius = UDim.new(0, 8)
+
+UIC = Instance.new("UIStroke")
+UIC.Parent = Close
+UIC.ApplyStrokeMode = "Border"
+UIC.Color = Color3.new(77, 77, 77)
+UIC.LineJoinMode = "Round"
+UIC.Thickness = 1
+UIC.Transparency = 0
 
 local tlab = Instance.new("TextLabel")
-tlab.Parent = gui
+tlab.Parent = ui
 tlab.Name = "tlab"
-tlab.Size = UDim2.new(1, 0, 0.1, 0)
-tlab.Position = UDim2.new(0, 0, 0, 0)
+tlab.Size = UDim2.new(1, 0, 1, 0)
+tlab.Position = UDim2.new(-0.1, 0, 0, 0)
 tlab.BackgroundColor3 = Color3.new(0, 0, 0)
 tlab.BackgroundTransparency = 1
 tlab.BorderColor3 = Color3.new(0, 0, 0)
 tlab.BorderSizePixel = 1
 tlab.TextColor3 = Color3.new(1, 1, 1)
 tlab.TextScaled = true
-tlab.Font = Enum.Font.Oswald
+tlab.Font = Enum.Font.Cartoon
 tlab.Text = "Tool Grip Editor"
 tlab.TextXAlignment = Enum.TextXAlignment.Center
 tlab.TextYAlignment = Enum.TextYAlignment.Center
+
+local gui = Instance.new("Frame")
+gui.Parent = ui
+gui.Name = "gui"
+gui.Size = UDim2.new(1.00999999, 0, 10.9000015, 0)
+gui.Position = UDim2.new(0.5, 0, 5.39999962, 0)
+gui.AnchorPoint = Vector2.new(0.5, 0.5)
+gui.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
+gui.BorderColor3 = Color3.new(0.3, 0.3, 0.3)
+gui.BorderSizePixel = 2
+gui.ZIndex = 0
+
+UICorner = Instance.new("UICorner")
+UICorner.Parent = gui
+UICorner.CornerRadius = UDim.new(0, 17)
+
+clf = false
+local Clo = Instance.new("TextButton")
+Clo.Parent = ui
+Clo.Name = "---"
+Clo.Size = UDim2.new(0.150000006, 0, 0.899999976, 0)
+Clo.Position = UDim2.new(0.839999914, 0, 0.5, 0)
+Clo.AnchorPoint = Vector2.new(1, 0.5)
+Clo.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+Clo.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
+Clo.BorderSizePixel = 2
+Clo.TextColor3 = Color3.new(1, 1, 1)
+Clo.TextSize = 24
+Clo.Font = Enum.Font.GothamBold
+Clo.Text = "-"
+Clo.MouseButton1Click:Connect(function()
+	if clf == false then
+		gui.Visible = true
+		Clo.Text = "-"
+		clf = true
+	else
+		gui.Visible = false
+		Clo.Text = "+"
+		clf = false
+	end
+end)
+
+UICorner = Instance.new("UICorner")
+UICorner.Parent = Clo
+UICorner.CornerRadius = UDim.new(0, 8)
+
+UIC = Instance.new("UIStroke")
+UIC.Parent = Clo
+UIC.ApplyStrokeMode = "Border"
+UIC.Color = Color3.new(77, 77, 77)
+UIC.LineJoinMode = "Round"
+UIC.Thickness = 1
+UIC.Transparency = 0
 
 local posLabel = Instance.new("TextLabel")
 posLabel.Parent = gui
@@ -321,11 +416,12 @@ sample1.BorderSizePixel = 2
 sample1.TextColor3 = Color3.new(1, 1, 1)
 sample1.TextScaled = true
 sample1.Font = Enum.Font.SourceSansBold
-sample1.Text = "Penis (Zpos+1)"
+sample1.Text = "Small PP"
+sample1.Visible = true
 sample1.MouseButton1Click:Connect(function()
-Xpos.Text = "1.5"
+Xpos.Text = "0"
 Ypos.Text = "1.5"
-Zpos.Text = "0"
+Zpos.Text = "1.5"
 end)
 
 local sample2 = Instance.new("TextButton")
@@ -340,14 +436,12 @@ sample2.BorderSizePixel = 2
 sample2.TextColor3 = Color3.new(1, 1, 1)
 sample2.TextScaled = true
 sample2.Font = Enum.Font.SourceSansBold
-sample2.Text = "Bang PP (Z+3)"
+sample2.Text = "Long PP"
+sample2.Visible = true
 sample2.MouseButton1Click:Connect(function()
-Xpos.Text = "1"
-Ypos.Text = "3.5"
+Xpos.Text = "0"
+Ypos.Text = "1.5"
 Zpos.Text = "1.5"
-RXpos.Text = "90"
-RYpos.Text = "0"
-RZpos.Text = "0"
 end)
 
 local sample3 = Instance.new("TextButton")
@@ -362,9 +456,15 @@ sample3.BorderSizePixel = 2
 sample3.TextColor3 = Color3.new(1, 1, 1)
 sample3.TextScaled = true
 sample3.Font = Enum.Font.SourceSansBold
-sample3.Text = "Sample 3"
+sample3.Text = "Back"
+sample3.Visible = true
 sample3.MouseButton1Click:Connect(function()
-print("runn")
+Xpos.Text = "-1"
+Ypos.Text = "2"
+Zpos.Text = "-1"
+RXpos.Text = "90"
+RYpos.Text = "0"
+RZpos.Text = "220"
 end)
 
 local sample4 = Instance.new("TextButton")
@@ -379,9 +479,148 @@ sample4.BorderSizePixel = 2
 sample4.TextColor3 = Color3.new(1, 1, 1)
 sample4.TextScaled = true
 sample4.Font = Enum.Font.SourceSansBold
-sample4.Text = "Sample 4"
+sample4.Text = "Hat"
+sample4.Visible = true
 sample4.MouseButton1Click:Connect(function()
-print("runn")
+Xpos.Text = "1.5"
+Ypos.Text = "-1.7"
+Zpos.Text = "0"
+end)
+
+local sample5x = Instance.new("TextBox")
+sample5x.Parent = gui
+sample5x.Name = "Sample5x"
+sample5x.Size = UDim2.new(0.1, 0, 0.0799999982, 0)
+sample5x.Position = UDim2.new(0.70000025, 0, 0.180000007, 0)
+sample5x.AnchorPoint = Vector2.new(0.5, 0)
+sample5x.BackgroundColor3 = Color3.new(2, 2, 2)
+sample5x.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
+sample5x.BorderSizePixel = 2
+sample5x.TextColor3 = Color3.new(0, 0, 0)
+sample5x.TextScaled = true
+sample5x.Font = Enum.Font.SourceSansBold
+sample5x.Text = "X"
+sample5x.PlaceholderText = "X Pos..."
+sample5x.Visible = false
+
+local sample5y = Instance.new("TextBox")
+sample5y.Parent = gui
+sample5y.Name = "Sample5y"
+sample5y.Size = UDim2.new(0.1, 0, 0.0799999982, 0)
+sample5y.Position = UDim2.new(0.80000025, 0, 0.180000007, 0)
+sample5y.AnchorPoint = Vector2.new(0.5, 0)
+sample5y.BackgroundColor3 = Color3.new(2, 2, 2)
+sample5y.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
+sample5y.BorderSizePixel = 2
+sample5y.TextColor3 = Color3.new(0, 0, 0)
+sample5y.TextScaled = true
+sample5y.Font = Enum.Font.SourceSansBold
+sample5y.Text = "Y"
+sample5y.PlaceholderText = "Y Pos..."
+sample5y.Visible = false
+
+local sample5z = Instance.new("TextBox")
+sample5z.Parent = gui
+sample5z.Name = "Sample5z"
+sample5z.Size = UDim2.new(0.1, 0, 0.0799999982, 0)
+sample5z.Position = UDim2.new(0.90000025, 0, 0.180000007, 0)
+sample5z.AnchorPoint = Vector2.new(0.5, 0)
+sample5z.BackgroundColor3 = Color3.new(2, 2, 2)
+sample5z.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
+sample5z.BorderSizePixel = 2
+sample5z.TextColor3 = Color3.new(0, 0, 0)
+sample5z.TextScaled = true
+sample5z.Font = Enum.Font.SourceSansBold
+sample5z.Text = "Z"
+sample5z.PlaceholderText = "Z Pos..."
+sample5z.Visible = false
+
+local sample6 = Instance.new("TextButton")
+sample6.Parent = gui
+sample6.Name = "sample2"
+sample6.Size = UDim2.new(0.300000012, 0, 0.0799999982, 0)
+sample6.Position = UDim2.new(0.80000025, 0, 0.310000007, 0)
+sample6.AnchorPoint = Vector2.new(0.5, 0)
+sample6.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+sample6.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
+sample6.BorderSizePixel = 2
+sample6.TextColor3 = Color3.new(1, 1, 1)
+sample6.TextScaled = true
+sample6.Font = Enum.Font.SourceSansBold
+sample6.Text = "Load Custom Pos"
+sample6.Visible = false
+sample6.MouseButton1Click:Connect(function()
+Xpos.Text = sample5x.Text
+Ypos.Text = sample5y.Text
+Zpos.Text = sample5z.Text
+end)
+
+local sample7x = Instance.new("TextBox")
+sample7x.Parent = gui
+sample7x.Name = "Sample7x"
+sample7x.Size = UDim2.new(0.1, 0, 0.0799999982, 0)
+sample7x.Position = UDim2.new(0.70000025, 0, 0.440000007, 0)
+sample7x.AnchorPoint = Vector2.new(0.5, 0)
+sample7x.BackgroundColor3 = Color3.new(2, 2, 2)
+sample7x.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
+sample7x.BorderSizePixel = 2
+sample7x.TextColor3 = Color3.new(0, 0, 0)
+sample7x.TextScaled = true
+sample7x.Font = Enum.Font.SourceSansBold
+sample7x.Text = "X"
+sample7x.PlaceholderText = "X Orientation..."
+sample7x.Visible = false
+
+local sample7y = Instance.new("TextBox")
+sample7y.Parent = gui
+sample7y.Name = "Sample7y"
+sample7y.Size = UDim2.new(0.1, 0, 0.0799999982, 0)
+sample7y.Position = UDim2.new(0.8, 0, 0.440000007, 0)
+sample7y.AnchorPoint = Vector2.new(0.5, 0)
+sample7y.BackgroundColor3 = Color3.new(2, 2, 2)
+sample7y.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
+sample7y.BorderSizePixel = 2
+sample7y.TextColor3 = Color3.new(0, 0, 0)
+sample7y.TextScaled = true
+sample7y.Font = Enum.Font.SourceSansBold
+sample7y.Text = "Y"
+sample7y.PlaceholderText = "Y Orientation..."
+sample7y.Visible = false
+
+local sample7z = Instance.new("TextBox")
+sample7z.Parent = gui
+sample7z.Name = "Sample7z"
+sample7z.Size = UDim2.new(0.1, 0, 0.0799999982, 0)
+sample7z.Position = UDim2.new(0.9, 0, 0.440000007, 0)
+sample7z.AnchorPoint = Vector2.new(0.5, 0)
+sample7z.BackgroundColor3 = Color3.new(2, 2, 2)
+sample7z.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
+sample7z.BorderSizePixel = 2
+sample7z.TextColor3 = Color3.new(0, 0, 0)
+sample7z.TextScaled = true
+sample7z.Font = Enum.Font.SourceSansBold
+sample7z.Text = "Z"
+sample7z.PlaceholderText = "Z Orientation..."
+sample7z.Visible = false
+
+local sample8 = Instance.new("TextButton")
+sample8.Parent = gui
+sample8.Name = "sample8"
+sample8.Size = UDim2.new(0.300000012, 0, 0.0799999982, 0)
+sample8.Position = UDim2.new(0.80000025, 0, 0.570000007, 0)
+sample8.AnchorPoint = Vector2.new(0.5, 0)
+sample8.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+sample8.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
+sample8.BorderSizePixel = 2
+sample8.TextColor3 = Color3.new(1, 1, 1)
+sample8.TextScaled = true
+sample8.Font = Enum.Font.SourceSansBold
+sample8.Text = "Load Custom Ori"
+sample8.Visible = false
+sample8.MouseButton1Click:Connect(function()
+RXpos.Text = sample7x.Text
+RYpos.Text = sample7y.Text
+RZpos.Text = sample7z.Text
 end)
 
 local next = Instance.new("TextButton")
@@ -397,25 +636,54 @@ next.TextColor3 = Color3.new(1, 1, 1)
 next.TextScaled = true
 next.Font = Enum.Font.SourceSansBold
 next.Text = ">"
-next.MouseButton1Click:Connect(function()
-print("Coming soon")
+next.Visible = true
+
+local back = Instance.new("TextButton")
+back.Parent = gui
+back.Name = "back"
+back.Size = UDim2.new(0.100000012, 0, 0.0799999982, 0)
+back.Position = UDim2.new(0.700000215, 0, 0.690000057, 0)
+back.AnchorPoint = Vector2.new(0.5, 0)
+back.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+back.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
+back.BorderSizePixel = 2
+back.TextColor3 = Color3.new(1, 1, 1)
+back.TextScaled = true
+back.Font = Enum.Font.SourceSansBold
+back.Text = "<"
+back.Visible = false
+back.MouseButton1Click:Connect(function()
+sample1.Visible = true
+sample2.Visible = true
+sample3.Visible = true
+sample4.Visible = true
+sample5x.Visible = false
+sample5y.Visible = false
+sample5z.Visible = false
+sample6.Visible = false
+sample7x.Visible = false
+sample7y.Visible = false
+sample7z.Visible = false
+sample8.Visible = false
+next.Visible = true
+back.Visible = false
 end)
 
-local Close = Instance.new("TextButton")
-Close.Parent = gui
-Close.Name = "XXX"
-Close.Size = UDim2.new(0.15, 0, 0.08, 0)
-Close.Position = UDim2.new(0.925, 0, 0.05, 0)
-Close.AnchorPoint = Vector2.new(1, 0.5)
-Close.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
-Close.BorderColor3 = Color3.new(0.4, 0.4, 0.4)
-Close.BorderSizePixel = 2
-Close.TextColor3 = Color3.new(1, 1, 1)
-Close.TextSize = 16
-Close.Font = Enum.Font.GothamBold
-Close.Text = "X"
-Close.MouseButton1Click:Connect(function()
-	gui:Destroy()
+next.MouseButton1Click:Connect(function()
+sample1.Visible = false
+sample2.Visible = false
+sample3.Visible = false
+sample4.Visible = false
+sample5x.Visible = true
+sample5y.Visible = true
+sample5z.Visible = true
+sample6.Visible = true
+sample7x.Visible = true
+sample7y.Visible = true
+sample7z.Visible = true
+sample8.Visible = true
+next.Visible = false
+back.Visible = true
 end)
 
 local function TexbV(textBox, increment)
@@ -424,30 +692,29 @@ local function TexbV(textBox, increment)
 end
 
 XupButton.MouseButton1Click:Connect(function()
-	TexbV(Xpos, 0.01)
+	TexbV(Xpos, 1)
 end)
 
 XdownButton.MouseButton1Click:Connect(function()
-	TexbV(Xpos, -0.01)
+	TexbV(Xpos, -1)
 end)
 
 YupButton.MouseButton1Click:Connect(function()
-	TexbV(Ypos, 0.01)
+	TexbV(Ypos, 1)
 end)
 
 YdownButton.MouseButton1Click:Connect(function()
-	TexbV(Ypos, -0.01)
+	TexbV(Ypos, -1)
 end)
 
 ZupButton.MouseButton1Click:Connect(function()
-	TexbV(Zpos, 0.01)
+	TexbV(Zpos, 1)
 end)
 
 ZdownButton.MouseButton1Click:Connect(function()
-	TexbV(Zpos, -0.01)
+	TexbV(Zpos, -1)
 end)
 
--- Connect button events for Orientation
 RXupButton.MouseButton1Click:Connect(function()
 	TexbV(RXpos, 1)
 end)
@@ -540,4 +807,4 @@ LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
 
 if LocalPlayer.Character then
 	onCharacterAdded(LocalPlayer.Character)
-end
+end 
